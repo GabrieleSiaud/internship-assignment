@@ -1,0 +1,16 @@
+# Node / React
+node_modules/
+frontend/node_modules/
+dist/
+frontend/dist/
+
+# Go
+backend/eneba.exe
+
+# Env
+.env
+
+# OS / IDE
+.vscode/
+.idea/
+.DS_Store
