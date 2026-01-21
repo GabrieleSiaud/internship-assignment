@@ -1,37 +1,69 @@
-html, body {
+html, body, #root {
+  height: 100%;
   margin: 0;
   padding: 0;
-  width: 100%;
 }
 
 body {
-  margin: 0;
   display: flex;
   flex-direction: column;
-  min-width: 320px;
   min-height: 100vh;
   background-color: rgb(93, 4, 195);
 }
 
 #root {
-  width: 100%;
   display: flex;
   flex-direction: column;
-  min-height: 100vh;
+  flex-grow: 1;
 }
-
-#root > div {
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  min-height: 100vh;
-}
-
 .search-wrapper {
   position: relative;
   width: 300px;
-  display: inline-block;
-  vertical-align: middle;
+}
+
+.search-icon {
+  position: absolute;
+  left: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: white;
+  pointer-events: none;
+  font-size: 20px;
+}
+
+.search-input {
+  width: 100%;
+  padding-left: 35px;
+  padding-right: 35px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  font-size: 16px;
+  color: white;
+  background-color: rgb(93, 4, 195);
+  border: 2px solid white;
+  box-sizing: border-box;
+}
+
+.clear-button {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  color: white;
+  cursor: pointer;
+  font-size: 20px;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.no-games {
+  color: white;
+  font-size: 18px;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
 .app-header {
@@ -46,6 +78,13 @@ body {
   padding: 0 20px;
 }
 
+.results {
+  margin-left: 225px;
+  margin-top: 15px;
+  color: white;
+  font-weight: normal;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
 
 .header-left {
   display: flex;
@@ -73,6 +112,10 @@ body {
   stroke: white;
 }
 
+.icon-btn svg:hover {
+  stroke: #ffea00;
+}
+
 h1 {
   color: white;
   font-size: 14px;
@@ -81,15 +124,218 @@ h1 {
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
+h1:hover{
+  color: #ffea00;
+}
+
 .profile-pic {
   width: 40px;
   border-radius: 50%;
   border: 2px solid #ffffff;
 }
 
-main {
-  flex: 1;
+.games-grid {
+  flex-grow: 1;
+  min-height: calc(100vh - 220px); /* Atimkite header ir footer aukštį */
+  margin-left: 200px;
+  margin-right: 200px;
+  padding: 30px;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+  align-content: start; /* Kad kortelės liktų viršuje */
 }
+
+/* Kortelė */
+.game-card {
+  width: 100%;
+  border: 2px solid #5073ff;
+  background-color: #1e1e2f;
+  color: white;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.game-info {
+  position: relative;
+  transition: transform 0.3s ease;
+  background-color: #1e1e2f;
+  padding-top: 10px;
+}
+
+.game-card:hover .game-info {
+  transform: translateY(-110px);
+}
+
+.add-to-cart-btn {
+  position: absolute;
+  bottom: -110px;
+  left: 0;
+  right: 0;
+  background-color: #ffef14;
+  color: rgb(29, 0, 57);
+  border: none;
+  padding: 12px;
+  margin: 0 15px 7px 15px;
+  font-size: 14px;
+  font-weight: bold;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.add-to-cart-btn:hover {
+  background-color: #dead0b;
+}
+
+.options-btn {
+  position: absolute;
+  bottom: -110px;
+  left: 0;
+  right: 0;
+  background-color: #1e1e2f;
+  color: white;
+  border: 2px solid #ffffff;
+  padding: 12px;
+  margin: 0 15px 7px 15px;
+  font-size: 14px;
+  font-weight: bold;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.options-btn:hover {
+  background-color: #10101c;
+  border: 2px solid #dead0b;
+}
+
+.game-card:hover .add-to-cart-btn {
+  bottom: 60px; /* Pirmas mygtukas virš antro */
+}
+
+.game-card:hover .options-btn {
+  bottom: 7px; /* Antras mygtukas apačioje */
+}
+
+/* Nuotrauka */
+.game-image {
+  width: 100%;
+  height: 350px;
+  object-fit: cover;
+  margin-bottom: 10px;
+}
+
+/* Pavadinimas */
+.game-title {
+  font-size: 14px;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-weight: normal;
+  margin: 0 0 8px 15px;
+}
+
+/* Kaina */
+.game-price {
+  font-weight: bold;
+  margin: 0;
+}
+
+/* Kai neranda žaidimų */
+.no-games {
+  color: white;
+  font-size: 18px;
+}
+
+.game-place{
+  font-size: 14px;
+  font-weight: bold;
+  letter-spacing: 1px;
+  color: #04c4bd;
+  margin: 0 10px 10px 15px;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.game-original-price {
+  font-size: 14px;
+  opacity: 0.7;
+  margin: 0 5px 0 15px;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.game-discount-badge {
+  color: #00d936;
+  font-size: 14px;
+  font-weight: bold;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.game-discounted-price-bottom {
+  font-size: 18px;
+  font-weight: bold;
+  color: white;
+  margin: 0 5px 7px 15px;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.game-normal-price {
+  font-size: 18px;
+  font-weight: bold;
+  color: white;
+  margin: 0 5px 7px 15px;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.game-cashback {
+  font-size: 12px;
+  font-weight: bold;
+  letter-spacing: 1px;
+  color: #00d936;
+  margin: 0 10px 15px 15px;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.likes {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-left: 15px;
+  opacity: 0.6;
+  font-size: 12px;
+}
+
+.likes svg {
+  height: 15px;
+  stroke: white;
+}
+
+.game-image-wrapper {
+  position: relative;
+  display: inline-block;
+  width: 100%;
+}
+
+.cashback-badge {
+  position: absolute;
+  top: -80px;
+  background-color: rgb(70, 233, 255);
+  color: rgb(37, 0, 112);
+  font-size: 12px;
+  font-weight: bold;
+  padding: 3px 10px 5px 5px;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  letter-spacing: 0.05em;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;  
+}
+
 
 footer {
   background-color: #210047;
@@ -98,4 +344,6 @@ footer {
   color: white;
   width: 100%;
   box-sizing: border-box;
+  flex-shrink: 0;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
