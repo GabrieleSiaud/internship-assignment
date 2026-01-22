@@ -86,7 +86,7 @@ Before you start, make sure you have the following installed:
 
 *Frontend*
 
-- Run frontend. In the terminal write these commands:
+- Run frontend. In another terminal write these commands:
     - npm install (only for the first time running React)
     - npm run frontend
 - The frontend will be running on localhost:5173. 
