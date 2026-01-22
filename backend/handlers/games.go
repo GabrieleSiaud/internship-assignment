@@ -1,3 +1,4 @@
+// Package handlers contains HTTP handlers for the application.
 package handlers
 
 import (
@@ -13,6 +14,11 @@ import (
 	"github.com/jackc/pgx/v5/pgxpool"
 )
 
+/*ListGamesHandler returns an HTTP handler function that lists games from the database.
+The handler queries the database for games matching the search term (if provided),
+encodes the results as JSON, and writes them to the response.
+In case of a database or scanning error, it responds with HTTP 500 Internal Server Error.*/
+
 func ListGamesHandler(pool *pgxpool.Pool) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
 
@@ -24,10 +30,10 @@ func ListGamesHandler(pool *pgxpool.Pool) http.HandlerFunc {
 		if search != "" {
 			searchParam := "%" + search + "%"
 			rows, err = pool.Query(context.Background(),
-				`SELECT id, title, image_url, price, discount, likes, place FROM games WHERE LOWER(title) LIKE $1`, searchParam)
+				`SELECT id, title, image_url, price, discount, likes, place, platform, image FROM games WHERE LOWER(title) LIKE $1`, searchParam)
 		} else {
 			rows, err = pool.Query(context.Background(),
-				`SELECT id, title, image_url, price, discount, likes, place FROM games`)
+				`SELECT id, title, image_url, price, discount, likes, place, platform, image FROM games`)
 		}
 
 		if err != nil {
@@ -39,7 +45,7 @@ func ListGamesHandler(pool *pgxpool.Pool) http.HandlerFunc {
 
 		for rows.Next() {
 			var g models.Game
-			if err := rows.Scan(&g.ID, &g.Title, &g.ImageURL, &g.Price, &g.Discount, &g.Likes, &g.Place); err != nil {
+			if err := rows.Scan(&g.ID, &g.Title, &g.ImageURL, &g.Price, &g.Discount, &g.Likes, &g.Place, &g.Platform, &g.Image); err != nil {
 				log.Println("Scan error:", err)
 				http.Error(w, "Error scanning data", http.StatusInternalServerError)
 				return

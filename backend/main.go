@@ -1,3 +1,8 @@
+/*
+	Package main contains the entry point of the application,
+
+which sets up the HTTP server, database connection, and routes.
+*/
 package main
 
 import (
@@ -15,6 +20,9 @@ import (
 	"eneba/handlers"
 )
 
+/*main initializes the application by loading environment variables,
+  connecting to the PostgreSQL database, setting up HTTP routes, and starting the server.*/
+
 func main() {
 	err := godotenv.Load()
 	if err != nil {
@@ -31,20 +39,19 @@ func main() {
 		log.Fatal("Cannot connect to DB:", err)
 	}
 	defer pool.Close()
-	fmt.Println("✅ Database connected!")
+	fmt.Println("Database connected!")
 
 	r := chi.NewRouter()
 
 	r.Use(cors.Handler(cors.Options{
-		AllowedOrigins: []string{"*"}, // arba ["http://localhost:5174"] jei nori siaurinti
+		AllowedOrigins: []string{"*"},
 		AllowedMethods: []string{"GET", "POST", "OPTIONS"},
 		AllowedHeaders: []string{"Content-Type"},
 	}))
 
-	// Registruojam handlerį po CORS middleware
 	r.Get("/list", handlers.ListGamesHandler(pool))
 
-	fmt.Println("🚀 Server started at http://localhost:8080")
+	fmt.Println("Server started at http://localhost:8080")
 	log.Fatal(http.ListenAndServe(":8080", r))
 
 }

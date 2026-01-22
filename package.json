@@ -3,5 +3,8 @@
     "react": "^19.2.3",
     "react-dom": "^19.2.3",
     "react-icons": "^5.5.0"
+  },
+  "scripts": {
+    "frontend": "cd frontend && npm run dev"
   }
 }

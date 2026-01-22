@@ -2,6 +2,23 @@ import { useState, useEffect } from "react";
 import { FiSearch, FiX } from "react-icons/fi";
 import "./App.css";
 
+/**
+ * App.jsx is the main React component that renders a game search interface.
+ *
+ * It fetches game data from a backend API and displays the results.
+ * Users can search for games by title using the search input.
+ *
+ * Features:
+ * - Search games with live filtering.
+ * - Display game details including price, discount, cashback, and platform.
+ * - Clear search input.
+ * - Show loading errors in the console.
+ *
+ * @component
+ * @example
+ * return <App />
+ */
+
 function App() {
   const [games, setGames] = useState([]);
   const [search, setSearch] = useState("");
@@ -155,7 +172,17 @@ function App() {
                   />
                   CASHBACK
                 </div>
-                <h2 className="game-title">{game.title}</h2>
+
+                <div className="platform-info">
+                  <img
+                    src={game.image} 
+                    alt={game.platform}
+                    className="platform-logo"
+                  />
+                  <span className="platform-name">{game.platform}</span>
+                </div>
+
+                <h2 className="game-title">{game.title} {game.place}</h2>
                 <p className="game-place">{game.place}</p>
 
                 {hasDiscount ? (
