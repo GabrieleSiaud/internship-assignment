@@ -70,15 +70,6 @@ Before you start, make sure you have the following installed:
 
 *Backend*
 
-- Set environment variables, create .env file with this data:
-    ```env
-    PORT=8080
-    DATABASE_URL=postgres://postgres:root@localhost:5432/enebaDb?sslmode=disable
-    DB_HOST=localhost
-    DB_PORT=5432
-    DB_USER=postgres
-    DB_PASSWORD=root
-    DB_NAME=enebaDb
 - Run backend server. In terminal write these commands separately: 
     cd backend
     go run main.go
