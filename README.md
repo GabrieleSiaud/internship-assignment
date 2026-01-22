@@ -56,8 +56,8 @@ Before you start, make sure you have the following installed:
 
 - Create a new database named: enebaDb.
 - Import the database schema and seed data:  
-  An SQL file named `enebaDb.sql` is included in the repository.  
-  Import this file using your preferred PostgreSQL management tool (e.g., pgAdmin) or via terminal:  
+  An SQL file named `enebaDb.sql` is included in the eneba folder.  
+  Download and import this file using your preferred PostgreSQL management tool (e.g., pgAdmin) or via terminal:  
   ```bash
   psql -U your_username -d enebaDb -f path/to/enebaDb.sql
 - Configure database user and password. Make sure the backend config uses the correct credentials.
