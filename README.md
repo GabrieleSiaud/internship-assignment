@@ -1,6 +1,6 @@
 # INTERNSHIP ASSIGNMENT
 
-This repository contains the full project for the internship assignment — a fullstack web application with separate frontend and backend.
+This repository contains the full project for the internship assignment — a fullstack web application with separate frontend and backend. It also has more games than there was indicated in the assigment. Additional games are: Minecraft, Grand Theft Auto V and Terraria Steam Gift.
 
 # Project Overview
 
